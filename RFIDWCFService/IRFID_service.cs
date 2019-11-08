@@ -4,7 +4,7 @@ using System.ServiceModel.Web;
 
 namespace RFIDWCFService
 {
-    [ServiceContract(Namespace ="http://sybcom.rfid.api")]
+    [ServiceContract(Namespace = "http://sybcom.rfid.api")]
     public interface IRFID_service
     {
         [OperationContract]
@@ -14,23 +14,23 @@ namespace RFIDWCFService
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
         [OperationContract]
-        [WebGet]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/ConnectRFID/{ipPort}/{name}")]
         string ConnectRFID(string ipPort, string name = "Default");
 
         [OperationContract]
-        [WebGet]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/StopScan/{name}")]
         string StopScan(string name);
 
         [OperationContract]
-        [WebGet]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/StartScan/{name}")]
         string StartScan(string name);
 
         [OperationContract]
-        [WebGet]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/ReadOnce/{name}/{readPoint}")]
         string ReadOnce(string name, int readPoint);
 
         [OperationContract]
-        [WebGet]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/WriteOnce/{name}/{readPoint}/{newValue}")]
         string WriteOnce(string name, int readPoint, string newValue);
     }
 
