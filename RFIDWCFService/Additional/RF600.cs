@@ -71,13 +71,13 @@ namespace RFIDWCFService.Additional
 
         }
         // Запуск сканирования 
-        public void startScan( )
+        public void startScan(int readPoint = 0 )
         {
             NodeId met = null;
             NodeId obj = null;
             // Запрос методов и объектов
-            met = new NodeId(myRfidMethodIdentifiers.MethodIdList[0].Find(x => x.method == MethodToCall.ScanStart).methodNodeId, rfidNamespaceIdx);
-            obj = new NodeId(myRfidMethodIdentifiers.MethodIdList[0].Find(x => x.method == MethodToCall.ScanStart).objectNodeId, rfidNamespaceIdx);
+            met = new NodeId(myRfidMethodIdentifiers.MethodIdList[readPoint].Find(x => x.method == MethodToCall.ScanStart).methodNodeId, rfidNamespaceIdx);
+            obj = new NodeId(myRfidMethodIdentifiers.MethodIdList[readPoint].Find(x => x.method == MethodToCall.ScanStart).objectNodeId, rfidNamespaceIdx);
             // Выходные и входные параметры
             IList<object> cs = new List<object>();
             ScanSettings scs = new ScanSettings
@@ -99,10 +99,10 @@ namespace RFIDWCFService.Additional
             }
         }
         // Остановка сканирования (Содержимое идентично команде StartScan()
-        public void stopScan()
+        public void stopScan(int readPoint = 0)
         {
-            NodeId met = new NodeId(myRfidMethodIdentifiers.MethodIdList[0].Find(x => x.method == MethodToCall.ScanStop).methodNodeId, rfidNamespaceIdx);
-            NodeId obj = new NodeId(myRfidMethodIdentifiers.MethodIdList[0].Find(x => x.method == MethodToCall.ScanStop).objectNodeId, rfidNamespaceIdx);
+            NodeId met = new NodeId(myRfidMethodIdentifiers.MethodIdList[readPoint].Find(x => x.method == MethodToCall.ScanStop).methodNodeId, rfidNamespaceIdx);
+            NodeId obj = new NodeId(myRfidMethodIdentifiers.MethodIdList[readPoint].Find(x => x.method == MethodToCall.ScanStop).objectNodeId, rfidNamespaceIdx);
 
             IList<object> cs = new List<object>();
             // Нет конфигурационных элементов (вместо них отправляется null)
