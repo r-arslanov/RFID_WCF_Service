@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="RFIDWCFService.RFID_service" CodeBehind="RFID_service.svc.cs" %>
