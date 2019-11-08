@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RFIDWCFService")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("JSC Sybcom")]
 [assembly: AssemblyProduct("RFIDWCFService")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Можно указать все значения или установить для номеров редакции и сборки значение по умолчанию 
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
