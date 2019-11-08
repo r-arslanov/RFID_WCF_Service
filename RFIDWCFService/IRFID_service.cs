@@ -8,51 +8,54 @@ namespace RFIDWCFService
     public interface IRFID_service
     {
         [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
-        [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/ConnectRFID/{ipPort}/{name}")]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
         string ConnectRFID(string ipPort, string name = "Default");
 
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/StopScan/{name}")]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
         string StopScan(string name);
 
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/StartScan/{name}")]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
         string StartScan(string name);
 
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/ReadOnce/{name}/{readPoint}")]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
         string ReadOnce(string name, int readPoint);
 
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/WriteOnce/{name}/{readPoint}/{newValue}")]
-        string WriteOnce(string name, int readPoint, string newValue);
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        string WriteOnce(string name, int readPoint, string newValue, int mem = 1, int adr = 4);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        RfidAddress ReadCardMemory(string name, int readPoint);
     }
 
-    // Используйте контракт данных, как показано в примере ниже, чтобы добавить составные типы к операциям служб.
     [DataContract]
-    public class CompositeType
+    public class RfidAddress
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        string usr = "";
+        string tid = "";
+        string epc = "";
 
         [DataMember]
-        public bool BoolValue
+        public string USR
         {
-            get { return boolValue; }
-            set { boolValue = value; }
+            get { return usr; }
+            set { usr = value; }
         }
-
         [DataMember]
-        public string StringValue
+        public string TID
         {
-            get { return stringValue; }
-            set { stringValue = value; }
+            get { return tid; }
+            set { tid = value; }
+        }
+        [DataMember]
+        public string EPC
+        {
+            get { return epc; }
+            set { epc = value; }
         }
     }
 }

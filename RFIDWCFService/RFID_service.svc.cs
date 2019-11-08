@@ -10,26 +10,16 @@ namespace RFIDWCFService
         public static Dictionary<string, RF600> dic_rfid = new Dictionary<string, RF600>();
         #endregion
 
-        #region Default
-        public string GetData(int value)
+        public RfidAddress ReadCardMemory(string name, int readPoint)
         {
-            return string.Format("You entered: {0}", value);
-        }
+            RfidAddress rfa = new RfidAddress();
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
-        #endregion
+            rfa.EPC = dic_rfid[name].readTag(readPoint, 1, 4, 30);
+            rfa.TID = dic_rfid[name].readTag(readPoint, 2, 0, 8);
+            rfa.USR = dic_rfid[name].readTag(readPoint, 3, 0, 32);
 
+            return rfa;
+        }
         public string ConnectRFID(string ipPort, string name = "Default")
         {
             RF600 rfid = new RF600(ipPort, name);
@@ -66,12 +56,12 @@ namespace RFIDWCFService
 
         public string ReadOnce(string name, int readPoint)
         {
-            return dic_rfid[name].readTag(readPoint);
+            return dic_rfid[name].readTag(readPoint, 1, 4, 12);
         }
 
-        public string WriteOnce(string name, int readPoint, string newValue)
+        public string WriteOnce(string name, int readPoint, string newValue, int mem = 1, int adr = 4)
         {
-            return dic_rfid[name].writeTag(readPoint, newValue); 
+            return dic_rfid[name].writeTag(readPoint, newValue, mem, adr); 
         }
     }
 }

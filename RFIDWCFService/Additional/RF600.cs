@@ -117,7 +117,7 @@ namespace RFIDWCFService.Additional
             }
         }
         // Чтения параметров с карты
-        public string readTag(int readPoint)
+        public string readTag(int readPoint, int mem, int adr, int size)
         {
             string result = "No transponder";   // Результат запроса
             NodeId met = null;
@@ -133,9 +133,9 @@ namespace RFIDWCFService.Additional
 
             inp[0] = sd;                                // Не используется
             inp[1] = "RAW:BYTES";                       // Тип входных параметров (Не используется)
-            inp[2] = (ushort)1;                         // Индекс памяти из которой необходимо считывать информацию (0-RESERVED, 1-EPC, 2-TID, 3-UD)
-            inp[3] = (uint)4;                           // Смещение в памяти (Адрес начала)
-            inp[4] = (uint)12;                          // Длинна масива
+            inp[2] = (ushort)mem;                       // Индекс памяти из которой необходимо считывать информацию (0-RESERVED, 1-EPC, 2-TID, 3-UD)
+            inp[3] = (uint)adr;                         // Смещение в памяти (Адрес начала)
+            inp[4] = (uint)size;                        // Длинна масива
             inp[5] = ConvertStringToByteArray("");      // Пароль от считывателя (если используется)
 
             try
@@ -156,7 +156,7 @@ namespace RFIDWCFService.Additional
             return result;
         }
         // Запись команд на карту
-        public string writeTag(int readPoint, string newValue = "")
+        public string writeTag(int readPoint, string newValue = "", int mem = 1, int adr = 4)
         {
             // Инициализация переменных
             string result = "No transponder";
@@ -176,8 +176,8 @@ namespace RFIDWCFService.Additional
 
             inp[0] = sd;                                // Не используется
             inp[1] = "RAW:BYTES";                       // Тип входных параметров
-            inp[2] = (ushort)1;                         // Индекс памяти (0-RESERVED, 1-EPC, 2-TID, 3-UD)
-            inp[3] = (uint)4;                           // Смещение адресации
+            inp[2] = (ushort)mem;                       // Индекс памяти (0-RESERVED, 1-EPC, 2-TID, 3-UD)
+            inp[3] = (uint)adr;                         // Смещение адресации
             inp[4] = newByteValue;                      // Новое значение (Запишется на карту)
             inp[5] = ConvertStringToByteArray("");      // Пароль (Если установлен)
 
