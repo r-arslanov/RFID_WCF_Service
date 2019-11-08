@@ -9,23 +9,19 @@ namespace RFIDWCFService
     {
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        string ConnectRFID(string ipPort, string name = "Default");
+        ResultCommand ConnectRFID(string ipPort, string name = "Default"); 
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        string StopScan(string name);
+        ResultCommand StopScan(string name, int readPoint = 0);     
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        string StartScan(string name);
-
+        ResultCommand StartScan(string name, int readPoint = 0);    
+        
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        string ReadOnce(string name, int readPoint);
-
-        [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        string WriteOnce(string name, int readPoint, string newValue, int mem = 1, int adr = 4);
+        ResultCommand WriteCardMemory(string name, int readPoint, string newValue, int mem = 1, int adr = 4); 
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
@@ -56,6 +52,33 @@ namespace RFIDWCFService
         {
             get { return epc; }
             set { epc = value; }
+        }
+    }
+
+    [DataContract]
+    public class ResultCommand
+    {
+        int status = 0;
+        string comment;
+        string data;
+
+        [DataMember]
+        public int Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+        [DataMember]
+        public string Comment
+        {
+            get { return comment; }
+            set { comment = value; }
+        }
+        [DataMember]
+        public string Data
+        {
+            get { return data; }
+            set { data = value; }
         }
     }
 }
